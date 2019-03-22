@@ -1,0 +1,5 @@
+cat
+mouse
+giraffe
+monkey
+snake
