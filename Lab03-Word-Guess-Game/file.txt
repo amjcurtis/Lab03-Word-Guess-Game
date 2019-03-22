@@ -2,4 +2,5 @@ cat
 mouse
 giraffe
 monkey
+bear
 snake

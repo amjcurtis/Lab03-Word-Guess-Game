@@ -17,7 +17,7 @@ namespace Lab03_Word_Guess_Game
         // Create file
         public static void CreateFile(string path)
         {
-            string[] wordBank = { "cat", "mouse", "giraffe", "monkey", "snake" };
+            string[] wordBank = { "cat", "mouse", "giraffe", "monkey", "bear", "snake" };
 
             using (StreamWriter sw = new StreamWriter(path))
             {
@@ -31,14 +31,11 @@ namespace Lab03_Word_Guess_Game
         // Read file
         public static void ReadFile(string path)
         {
-            using (StreamReader sr = File.OpenText(path))
-            {
-                string s = "";
+            string[] words = File.ReadAllLines(path);
 
-                while ((s = sr.ReadLine()) != null)
-                {
-                    Console.WriteLine(s);
-                }
+            for (int i = 0; i < words.Length; i++)
+            {
+                Console.WriteLine(words[i]);
             }
         }
 
