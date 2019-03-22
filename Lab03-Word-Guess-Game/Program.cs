@@ -6,7 +6,7 @@ namespace Lab03_Word_Guess_Game
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
         }
     }
 }
