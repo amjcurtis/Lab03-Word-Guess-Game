@@ -8,9 +8,13 @@ namespace Lab03_Word_Guess_Game
         public static void Main(string[] args)
         {
             string filePath = "../../../file.txt";
+            string wordToAdd = "HEY!!";
 
             CreateFile(filePath);
+            // AddWord(filePath, wordToAdd);
             ReadFile(filePath);
+            Console.ReadLine();
+            // DeleteFile(filePath);
 
             Console.ReadLine();
         }
@@ -18,7 +22,7 @@ namespace Lab03_Word_Guess_Game
         // Create file
         public static void CreateFile(string path)
         {
-            string[] wordBank = { "cat", "mouse", "giraffe", "monkey", "bear" };
+            string[] wordBank = { "cat", "mouse", "giraffe", "monkey", "snake" };
 
             if (!File.Exists(path))
             {
@@ -43,8 +47,20 @@ namespace Lab03_Word_Guess_Game
             }
         }
 
-        // TODO AddWord() function
-        // If no file exists, create one
+        // Add word
+        public static void AddWord(string path, string newWord)
+        {
+            using (StreamWriter sw = File.AppendText(path))
+            {
+                sw.WriteLine(newWord);
+            }
+        }
+
+        // Delete file
+        public static void DeleteFile(string path)
+        {
+            File.Delete(path);
+        }
 
         // REQUIREMENTS
         // User inputs one letter at a time in guesses
