@@ -11,19 +11,23 @@ namespace Lab03_Word_Guess_Game
 
             CreateFile(filePath);
             ReadFile(filePath);
+
             Console.ReadLine();
         }
 
         // Create file
         public static void CreateFile(string path)
         {
-            string[] wordBank = { "cat", "mouse", "giraffe", "monkey", "bear", "snake" };
+            string[] wordBank = { "cat", "mouse", "giraffe", "monkey", "bear" };
 
-            using (StreamWriter sw = new StreamWriter(path))
+            if (!File.Exists(path))
             {
-                foreach (string word in wordBank)
+                using (StreamWriter sw = new StreamWriter(path))
                 {
-                    sw.WriteLine(word);
+                    foreach (string word in wordBank)
+                    {
+                        sw.WriteLine(word);
+                    }
                 }
             }
         }
