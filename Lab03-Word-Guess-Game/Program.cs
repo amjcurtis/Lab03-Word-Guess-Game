@@ -8,13 +8,14 @@ namespace Lab03_Word_Guess_Game
         public static void Main(string[] args)
         {
             string filePath = "../../../file.txt";
+            string[] wordBank = { "cat", "mouse", "giraffe", "monkey", "snake" };
             string wordToAdd = "HEY!!";
 
-            CreateFile(filePath);
-            // AddWord(filePath, wordToAdd);
+            CreateFile(filePath, wordBank);
+            AddWord(filePath, wordToAdd);
             ViewWords(filePath);
-            GetRandomWordFromFile(filePath);
-
+            // GetRandomWordFromFile(filePath);
+            DisplayBlankWord(filePath);
 
             Console.ReadLine();
             // DeleteFile(filePath);
@@ -23,10 +24,8 @@ namespace Lab03_Word_Guess_Game
         }
 
         // Create file
-        public static void CreateFile(string path)
+        public static void CreateFile(string path, string[] wordBank)
         {
-            string[] wordBank = { "cat", "mouse", "giraffe", "monkey", "snake" };
-
             if (!File.Exists(path))
             {
                 using (StreamWriter sw = new StreamWriter(path))
@@ -44,6 +43,7 @@ namespace Lab03_Word_Guess_Game
         {
             string[] words = File.ReadAllLines(path);
 
+            // Display all words in file in console
             for (int i = 0; i < words.Length; i++)
             {
                 Console.WriteLine(words[i]);
@@ -51,12 +51,19 @@ namespace Lab03_Word_Guess_Game
         }
 
         // Add word
-        public static void AddWord(string path, string newWord)
+        public static int AddWord(string path, string newWord)
         {
+            string[] words = File.ReadAllLines(path);
+            Console.WriteLine($"words.Length: {words.Length}");
+
             using (StreamWriter sw = File.AppendText(path))
             {
                 sw.WriteLine(newWord);
             }
+
+            words = File.ReadAllLines(path);
+            Console.WriteLine($"words.Length is now: {words.Length}");
+            return words.Length;
         }
 
         // TODO Delete word from file
@@ -73,9 +80,6 @@ namespace Lab03_Word_Guess_Game
         {
             string[] wordArray = File.ReadAllLines(path);
 
-            // Test to make sure file is being read and all lines are put in array 
-            Console.WriteLine("Word in file: [{0}]", string.Join(", ", wordArray));
-
             Random newRandNum = new Random();
 
             // Get random index of word array
@@ -89,23 +93,48 @@ namespace Lab03_Word_Guess_Game
             return randomMysteryWord;
         }
 
+        public static void DisplayBlankWord(string path)
+        {
+            string mysteryWord = GetRandomWordFromFile(path);
 
-    // REQUIREMENTS
-    // User inputs one letter at a time in guesses
-    // Save all guessed letters, correct and incorrect, throughout each *session*
-    // Show letters that've been correctly guessed for the displayed word
-    // Mystery word in each new session should come from hard-coded bank of words in external .txt file
-    // User can view, add, and delete words in word bank
+            char[] letters = mysteryWord.ToCharArray();
+            Console.WriteLine("letters: [{0}]", string.Join(" ", letters));
 
-    // SPECIFICATIONS
-    // METHODS
-    // Home navigation
-    // Pick random word for game session
-    // View words
-    // Add word
-    // Delete word
-    // Exit game
-    // Play game
+            Console.WriteLine(" ");
+            Console.WriteLine("Guess a letter.");
+            foreach (char letter in letters)
+            {
+                Console.Write("_ ");
+            }
+            Console.WriteLine(" ");
 
-}
+            // TODO Display list of letters guessed so far
+
+
+            // TODO Call method to 
+
+
+        }
+
+        // IDEAS
+        // Create single method that takes in both the mystery word and user's letter guess and detects if the word contains the letter, and return boolean so I can test
+
+        // REQUIREMENTS
+        // User inputs one letter at a time in guesses
+        // Save all guessed letters, correct and incorrect, throughout each *session*
+        // Show letters that've been correctly guessed for the displayed word
+        // Mystery word in each new session should come from hard-coded bank of words in external .txt file
+        // User can view, add, and delete words in word bank
+
+        // SPECIFICATIONS
+        // METHODS
+        // Home navigation
+        // Pick random word for game session
+        // View words
+        // Add word
+        // Delete word
+        // Exit game
+        // Play game
+
+    }
 }
