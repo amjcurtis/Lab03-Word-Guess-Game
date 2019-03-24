@@ -5,6 +5,9 @@ namespace XUnitTestProject_Lab03_Word_Guess_Game
 {
     public class UnitTest1
     {
+        /// <summary>
+        /// Tests whether ViewWords method can retrieve and display last added words
+        /// </summary>
         [Fact]
         public void CanRetrieveAllWordsFromFile()
         {
