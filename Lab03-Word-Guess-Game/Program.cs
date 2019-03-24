@@ -55,7 +55,6 @@ namespace Lab03_Word_Guess_Game
 
             try
             {
-
                 string userAction = Console.ReadLine();
 
                 while (runProgram == true)
@@ -160,7 +159,7 @@ namespace Lab03_Word_Guess_Game
         /// Writes all words in file to console
         /// </summary>
         /// <param name="path">Path to file</param>
-        public static void ViewWords(string path)
+        public static string ViewWords(string path)
         {
             string[] words = File.ReadAllLines(path);
 
@@ -169,6 +168,9 @@ namespace Lab03_Word_Guess_Game
             {
                 Console.WriteLine(words[i]);
             }
+
+            // Returns last word added to file (for testing whether method can retrieve last added word)
+            return words[words.Length - 1];
         }
 
         /// <summary>
@@ -177,9 +179,10 @@ namespace Lab03_Word_Guess_Game
         /// <param name="path">Path to file</param>
         /// <param name="newWord">New word to add to file</param>
         /// <returns>Number of words in file</returns>
-        public static int AddWord(string path, string newWord)
+        public static bool AddWord(string path, string newWord)
         {
             string[] words = File.ReadAllLines(path);
+            int numberOfWordsBeforeAdding = words.Length;
             Console.WriteLine($"words.Length: {words.Length}");
 
             using (StreamWriter sw = File.AppendText(path))
@@ -188,8 +191,18 @@ namespace Lab03_Word_Guess_Game
             }
 
             words = File.ReadAllLines(path);
+            int numberOfWordsAfterAdding = words.Length;
             Console.WriteLine($"words.Length is now: {words.Length}");
-            return words.Length;
+
+            // If statement; used for returning boolean to use for testing success of AddWord method
+            if (numberOfWordsAfterAdding == (numberOfWordsBeforeAdding + 1))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -334,6 +347,10 @@ namespace Lab03_Word_Guess_Game
 
                 // Read user input and save to variable
                 string guessedLetterAsString = Console.ReadLine();
+
+                // TODO Make user input case-insensitive
+
+                // TODO Add regex test that only allows user to guess letters
 
                 // TODO Handle if user inputs more than one letter or invalid character
                 if (guessedLetterAsString.Length > 1)
