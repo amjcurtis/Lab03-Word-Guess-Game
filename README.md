@@ -33,15 +33,19 @@ Then select and open `Lab03-Word-Guess-Game.sln`
 
 ##### Gameplay
 
-![Gameplay](/assets/)
-
-##### Add New Word
-
-![Add New Word]()
+![Gameplay](/assets/gameplay.png)
 
 ##### View All Words in Word Bank
 
-![View All Words in Word Bank]()
+![View All Words in Word Bank](/assets/view-all-words.png)
+
+##### Add New Word
+
+![Add New Word](/assets/adding-word.png)
+
+##### Remove A Word
+
+![Remove a Word](/assets/remove-word.png)
 
 
 ## Change Log

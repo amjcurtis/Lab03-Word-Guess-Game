@@ -183,7 +183,6 @@ namespace Lab03_Word_Guess_Game
         {
             string[] words = File.ReadAllLines(path);
             int numberOfWordsBeforeAdding = words.Length;
-            Console.WriteLine($"words.Length: {words.Length}");
 
             using (StreamWriter sw = File.AppendText(path))
             {
@@ -192,7 +191,6 @@ namespace Lab03_Word_Guess_Game
 
             words = File.ReadAllLines(path);
             int numberOfWordsAfterAdding = words.Length;
-            Console.WriteLine($"words.Length is now: {words.Length}");
 
             // If statement; used for returning boolean to use for testing success of AddWord method
             if (numberOfWordsAfterAdding == (numberOfWordsBeforeAdding + 1))
@@ -214,7 +212,6 @@ namespace Lab03_Word_Guess_Game
         {
             // Array of all words in old file
             string[] allWords = File.ReadAllLines(path);
-            Console.WriteLine($"allWords.Length: {allWords.Length}");
 
             // Only update word bank file if word to delete is present in it
             if (Array.Exists(allWords, str => str.Contains(wordToDelete)))
@@ -253,7 +250,6 @@ namespace Lab03_Word_Guess_Game
             }
             // Redisplay words in file to confirm all instances of specified word have been deleted
             allWords = File.ReadAllLines(path);
-            Console.WriteLine($"allWords.Length is now: {allWords.Length}");
         }
 
         /// <summary>
@@ -278,11 +274,9 @@ namespace Lab03_Word_Guess_Game
 
             // Get random index of word array
             int indexOfNewMysteryWord = newRandNum.Next(0, wordArray.Length);
-            Console.WriteLine($"indexOfNewMysteryWord: {indexOfNewMysteryWord}");
 
             // Save word at random index to return as new mystery word
             string randomMysteryWord = wordArray[indexOfNewMysteryWord];
-            Console.WriteLine($"randomMysteryWord: {randomMysteryWord}");
 
             return randomMysteryWord;
         }
@@ -318,8 +312,6 @@ namespace Lab03_Word_Guess_Game
 
             // Create char array of letters in mystery word
             char[] mysteryWordLetters = mysteryWord.ToCharArray();
-            Console.WriteLine("mysteryWordLetters: [{0}]", string.Join(" ", mysteryWordLetters));
-            Console.WriteLine(" ");
 
             // String that will contain each letter that user guesses
             string stringOfAllGuessedLetters = "";

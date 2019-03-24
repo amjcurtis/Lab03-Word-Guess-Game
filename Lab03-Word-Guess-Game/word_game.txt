@@ -1,15 +1,6 @@
 cat
+mouse
 giraffe
 monkey
 snake
-cookie
-moose
-Booyah
-Booyah
-Booyah
-Booyah
-Booyah
-Booyah
-Booyah
-Booyah
-Booyah
+lizard
