@@ -30,5 +30,64 @@ namespace XUnitTestProject_Lab03_Word_Guess_Game
         //    Assert.Equal((words.Length + 1), testLength);
         //    //Assert.True(exists);
         //}
+
+        /// <summary>
+        /// Tests whether word contains a letter by checking equality of expected boolean and actual returned boolean
+        /// </summary>
+        /// <param name="boolean">Boolean returned by the method being tested</param>
+        /// <param name="guessedLetter">Char to search for in word</param>
+        [Theory]
+        [InlineData(true, 'r')]
+        [InlineData(false, 'a')]
+
+        public void CanDetectIfMysteryWordContainsGuessedLetter(bool boolean, char guessedLetter)
+        {
+            // Arrange
+            string mysteryWord = "crocodile";
+
+            // Act
+            bool wordContainsLetter = Program.CheckIfWordContainsLetter(mysteryWord, guessedLetter);
+
+            //Assert
+            Assert.Equal(boolean, wordContainsLetter);
+        }
+
+        /// <summary>
+        /// Tests whether word contains a letter by asserting boolean true where true is expected
+        /// </summary>
+        /// <param name="guessedLetter">Char to search for in word</param>
+        [Theory]
+        [InlineData('c')]
+
+        public void CanReturnTrueIfMysteryWordContainsGuessedLetter(char guessedLetter)
+        {
+            // Arrange
+            string mysteryWord = "crocodile";
+
+            // Act
+            bool wordContainsLetter = Program.CheckIfWordContainsLetter(mysteryWord, guessedLetter);
+
+            //Assert
+            Assert.True(wordContainsLetter);
+        }
+
+        /// <summary>
+        /// Tests whether word contains a letter by asserting boolean false where false is expected
+        /// </summary>
+        /// <param name="guessedLetter">Char to search for in word</param>
+        [Theory]
+        [InlineData('x')]
+
+        public void CanReturnFalseIfNotMysteryWordContainsGuessedLetter(char guessedLetter)
+        {
+            // Arrange
+            string mysteryWord = "crocodile";
+
+            // Act
+            bool wordContainsLetter = Program.CheckIfWordContainsLetter(mysteryWord, guessedLetter);
+
+            //Assert
+            Assert.False(wordContainsLetter);
+        }
     }
 }
