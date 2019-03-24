@@ -9,8 +9,6 @@ namespace Lab03_Word_Guess_Game
         {
             string filePath = "../../../word_game.txt";
             string[] initialWordBank = { "cat", "kitty", "mouse", "giraffe", "monkey", "kitty", "snake" };
-            //string userWordToAdd = "kitty";
-            //string wordToDelete = "kitty";
 
             // Create word bank file and populate with initial bank of words
             CreateFile(filePath, initialWordBank);
@@ -37,6 +35,11 @@ namespace Lab03_Word_Guess_Game
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Shows Home menu to user
+        /// </summary>
+        /// <param name="filePath">Path to word bank file</param>
+        /// <returns>Returns boolean that tells calling method whether to keep running program</returns>
         public static bool showInterface(string filePath)
         {
             // Show Home menu
@@ -333,7 +336,10 @@ namespace Lab03_Word_Guess_Game
                 string guessedLetterAsString = Console.ReadLine();
 
                 // TODO Handle if user inputs more than one letter or invalid character
-
+                if (guessedLetterAsString.Length > 1)
+                {
+                    throw new Exception("Oops! You may only enter one letter at a time.");
+                }
 
                 Console.WriteLine($"You guessed \"{guessedLetterAsString}\"");
                 char guessedLetterAsChar = Convert.ToChar(guessedLetterAsString);
