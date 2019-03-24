@@ -8,8 +8,9 @@ namespace Lab03_Word_Guess_Game
         public static void Main(string[] args)
         {
             string filePath = "../../../word_game.txt";
-            string[] wordBank = { "cat", "mouse", "giraffe", "monkey", "snake" };
+            string[] wordBank = { "cat", "kitty", "mouse", "giraffe", "monkey", "kitty", "snake" };
             string wordToAdd = "kitty";
+            string wordToDelete = "kitty";
 
             // TODO Show Home menu
                 // TODO Give options to Play Game, View Words, Add Word, Remove Word, Delete File, Exit Program
@@ -17,6 +18,10 @@ namespace Lab03_Word_Guess_Game
             CreateFile(filePath, wordBank);
             AddWord(filePath, wordToAdd);
             ViewWords(filePath);
+
+            DeleteWordFromFile(filePath, wordToDelete);
+            ViewWords(filePath);
+
             // GetRandomWordFromFile(filePath);
             PlayGame(filePath);
 
@@ -81,8 +86,56 @@ namespace Lab03_Word_Guess_Game
             return words.Length;
         }
 
-        // TODO Method to delete word from file
+        /// <summary>
+        /// Deletes all instances of specified word from word bank file; if word not exists in file, does nothing
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="wordToDelete"></param>
+        public static void DeleteWordFromFile(string path, string wordToDelete)
+        {
+            // Array of all words in old file
+            string[] allWords = File.ReadAllLines(path);
+            Console.WriteLine($"allWords.Length: {allWords.Length}");
 
+            // Only update word bank file if word to delete is present in it
+            if (Array.Exists(allWords, str => str.Contains(wordToDelete)))
+            {
+                string tempFilePath = "../../../temp_word_bank.txt";
+
+                // Replace all words in old array that match word to delete with ""
+                for (int i = 0; i < allWords.Length; i++)
+                {
+                    if (allWords[i] == wordToDelete)
+                    {
+                        allWords[i] = "";
+                    }
+                }
+
+                // Create new temp file
+                using (StreamWriter swForTemp = new StreamWriter(tempFilePath))
+
+                // Write all non-deleted words from old file into temp file
+                using (StreamReader srForOldFile = new StreamReader(path))
+                {
+                    for (int j = 0; j < allWords.Length; j++)
+                    {
+                        if (allWords[j] != "")
+                        {
+                            swForTemp.WriteLine(allWords[j]);
+                        }
+                    }
+                }
+                string[] filteredLines = File.ReadAllLines(tempFilePath);
+
+                // Delete old file, create new file with updated word bank, and delete temp file 
+                DeleteFile(path);
+                CreateFile(path, filteredLines);
+                DeleteFile(tempFilePath);
+            }
+            // Redisplay words in file to confirm all instances of specified word have been deleted
+            allWords = File.ReadAllLines(path);
+            Console.WriteLine($"allWords.Length is now: {allWords.Length}");
+        }
 
         /// <summary>
         /// Deletes file
