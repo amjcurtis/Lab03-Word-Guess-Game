@@ -107,14 +107,16 @@ namespace Lab03_Word_Guess_Game
 
             string mysteryWord = GetRandomWordFromFile(path);
 
-            char[] mysteryLetters = mysteryWord.ToCharArray();
-            Console.WriteLine("mysteryLetters: [{0}]", string.Join(" ", mysteryLetters));
+            // Create char array of letters in mystery word
+            char[] mysteryWordLetters = mysteryWord.ToCharArray();
+            Console.WriteLine("mysteryWordLetters: [{0}]", string.Join(" ", mysteryWordLetters));
+            Console.WriteLine(" ");
 
-            // Create array storing user's guesses so far
-            char[] arrayOfAllGuessedLetters = new char[mysteryLetters.Length];
+            // Create array storing all user's guesses so far
+            char[] arrayOfAllGuessedLetters = new char[mysteryWordLetters.Length];
 
             // Create array to update with guessed correctly letters
-            string[] arrayWithCorrectGuesses = new string[mysteryLetters.Length];
+            string[] arrayWithCorrectGuesses = new string[mysteryWordLetters.Length];
 
             // Initially populate array that will hold correct guesses with '_ '
             for (int i = 0; i < arrayWithCorrectGuesses.Length; i++)
@@ -122,18 +124,32 @@ namespace Lab03_Word_Guess_Game
                 arrayWithCorrectGuesses[i] = "_ ";
             }
 
-            Console.WriteLine(" ");
-            Console.WriteLine("Guess a letter.");
-            foreach (char letter in mysteryLetters)
-            {
-                Console.Write("_ ");
-            }
+            //////// LOGIC for for loop below ////////
 
-            // TODO Run loop to let user guess letter until number of user guesses == number of letters in word
-            for (int i = 0; i < mysteryLetters.Length; i++)
+            // LOOP
+            // Prompt user to guess letter
+            // Display array of spaces and/or letters guessed correctly so far
+            // Read user input
+            // Validate user input
+                // IF input invalid, throw error
+                // ELSE continue
+            // IF user input is valid letter
+                // Show user the letter they guessed
+                // IF letter is contained in word
+                    // Add letter to array that shows blanks and letters guessed correctly so far
+                    // Tell user they guessed correctly
+                // ELSE
+                    // Tell user they didn't guess correctly, and don't update array of correctly guessed letters
+                // Add letter to list of letters they've guessed so far
+            // Display array of all letters guessed so far
+
+            // Run loop to let user guess letter until number of user guesses == number of letters in word
+            for (int i = 0; i < mysteryWordLetters.Length; i++)
             {
                 Console.WriteLine("Guess a letter.");
+                Console.WriteLine(" ");
 
+                // Display array of spaces and/or letters guessed correctly so far
                 Console.WriteLine("{0}", string.Join(" ", arrayWithCorrectGuesses));
 
                 // Read user input and save to variable
@@ -149,17 +165,24 @@ namespace Lab03_Word_Guess_Game
                 bool mysteryWordContainsGuessedLetter = CheckIfWordContainsLetter(mysteryWord, guessedLetterAsChar);
 
                 // Add correctly guessed letters to appropriate index(es) in arrayWithCorrectGuesse
-                // Don't add if the letter has already been correctly guessed
                 if (mysteryWordContainsGuessedLetter == true) // Need to explicitly include '== true'?
                 {
-                    // Replace underscore(s) with correctly guessed letter in all places where guessed letter matches letter in mystery word
-
+                    // For each letter in mysteryWordLetters array
+                    for (int j = 0; j < mysteryWordLetters.Length; j++)
+                    {
+                        // If guessed letter equals letter in mysteryWordLetters array at [j]
+                        if (guessedLetterAsChar == mysteryWordLetters[j])
+                        {
+                            // Swap in letter for '_ ' in array of correctly guessed letters at [j]
+                            arrayWithCorrectGuesses[j] = guessedLetterAsString;
+                        }
+                    }
                 }
 
-                // TODO Add guessed letter to array of guessed letters
+                // Add guessed letter to array of all guessed letters
                 arrayOfAllGuessedLetters[i] = guessedLetterAsChar;
 
-                // Display list of guessed letters
+                // Display list of all guessed letters
                 Console.WriteLine("The letters you've guessed so far are: [{0}]", string.Join(", ", arrayOfAllGuessedLetters));
             }
         }
