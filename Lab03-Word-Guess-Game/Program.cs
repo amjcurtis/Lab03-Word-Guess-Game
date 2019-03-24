@@ -4,7 +4,11 @@ using System.IO;
 namespace Lab03_Word_Guess_Game
 {
     public class Program
-    {
+    {   
+        /// <summary>
+        /// Kicks off word guess game with call to method that displays home screen
+        /// </summary>
+        /// <param name="args">String array</param>
         public static void Main(string[] args)
         {
             string filePath = "../../../word_game.txt";
@@ -390,26 +394,5 @@ namespace Lab03_Word_Guess_Game
             Console.WriteLine("Hit Enter to return to Home menu.");
             Console.ReadLine();
         }
-
-        // IDEAS
-        // Create single method that takes in both the mystery word and user's letter guess and detects if the word contains the letter, and return boolean so I can test
-
-        // REQUIREMENTS
-        // User inputs one letter at a time in guesses
-        // Save all guessed letters, correct and incorrect, throughout each *session*
-        // Show letters that've been correctly guessed for the displayed word
-        // Mystery word in each new session should come from hard-coded bank of words in external .txt file
-        // User can view, add, and delete words in word bank
-
-        // SPECIFICATIONS
-        // METHODS
-        // Home navigation
-        // Pick random word for game session
-        // View words
-        // Add word
-        // Delete word
-        // Exit game
-        // Play game
-
     }
 }
