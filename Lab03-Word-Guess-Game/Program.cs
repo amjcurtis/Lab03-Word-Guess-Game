@@ -12,11 +12,34 @@ namespace Lab03_Word_Guess_Game
             //string userWordToAdd = "kitty";
             //string wordToDelete = "kitty";
 
+            // Create word bank file and populate with initial bank of words
             CreateFile(filePath, initialWordBank);
 
-
-            // Show Home menu
             Console.WriteLine("Welcome to the Word Guess Game!");
+
+            bool keepShowingInterface = showInterface(filePath);
+            while (keepShowingInterface == true)
+            {
+                try
+                {
+                    showInterface(filePath);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                finally
+                {
+                    showInterface(filePath);
+                    keepShowingInterface = showInterface(filePath);
+                }
+            }
+            Console.ReadLine();
+        }
+
+        public static bool showInterface(string filePath)
+        {
+            // Show Home menu
             Console.WriteLine(" ");
             Console.WriteLine("Enter the number of the option you would like to select.");
             Console.WriteLine("   1. Play game\n" +
@@ -25,9 +48,10 @@ namespace Lab03_Word_Guess_Game
                 "   4. Remove a mystery word from word bank\n" +
                 "   5. Exit program");
 
+            bool runProgram = true;
+
             try
             {
-                bool runProgram = true;
 
                 string userAction = Console.ReadLine();
 
@@ -96,25 +120,18 @@ namespace Lab03_Word_Guess_Game
                     }
                 }
             }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            Console.WriteLine("Hit Enter to exit the program.");
-
-            //AddWord(filePath, userWordToAdd);
-            //ViewWords(filePath);
-
-            //DeleteWordFromFile(filePath, wordToDelete);
-            //ViewWords(filePath);
-
-            //// GetRandomWordFromFile(filePath);
-            //PlayGame(filePath);
-
-            //Console.ReadLine();
-            // DeleteFile(filePath);
-
+            Console.WriteLine("Hit Enter to return to the Home menu.");
             Console.ReadLine();
+
+            return runProgram;
         }
 
         /// <summary>
