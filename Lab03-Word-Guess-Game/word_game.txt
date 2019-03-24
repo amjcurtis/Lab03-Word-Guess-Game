@@ -1,6 +1,5 @@
 cat
-mouse
 giraffe
 monkey
 snake
-kitty
+cookie

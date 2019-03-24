@@ -8,24 +8,110 @@ namespace Lab03_Word_Guess_Game
         public static void Main(string[] args)
         {
             string filePath = "../../../word_game.txt";
-            string[] wordBank = { "cat", "kitty", "mouse", "giraffe", "monkey", "kitty", "snake" };
-            string wordToAdd = "kitty";
-            string wordToDelete = "kitty";
+            string[] initialWordBank = { "cat", "kitty", "mouse", "giraffe", "monkey", "kitty", "snake" };
+            //string userWordToAdd = "kitty";
+            //string wordToDelete = "kitty";
 
-            // TODO Show Home menu
-                // TODO Give options to Play Game, View Words, Add Word, Remove Word, Delete File, Exit Program
+            CreateFile(filePath, initialWordBank);
 
-            CreateFile(filePath, wordBank);
-            AddWord(filePath, wordToAdd);
-            ViewWords(filePath);
 
-            DeleteWordFromFile(filePath, wordToDelete);
-            ViewWords(filePath);
+            // Show Home menu
+            Console.WriteLine("Welcome to the Word Guess Game!");
+            Console.WriteLine(" ");
+            Console.WriteLine("Enter the number of the option you would like to select.");
+            Console.WriteLine("   1. Play game\n" +
+                "   2. View all mystery words\n" +
+                "   3. Add new mystery word to word bank\n" +
+                "   4. Remove a mystery word from word bank\n" +
+                "   5. Exit program");
 
-            // GetRandomWordFromFile(filePath);
-            PlayGame(filePath);
+            try
+            {
+                bool runProgram = true;
 
-            Console.ReadLine();
+                string userAction = Console.ReadLine();
+
+                while (runProgram == true)
+                {
+                    switch (userAction)
+                    {
+                        case "1":
+                            Console.WriteLine("You've selected \"Play game.\"");
+                            PlayGame(filePath);
+                            break;
+
+                        case "2":
+                            Console.WriteLine("You've selected \"View all mystery words.\"");
+                            ViewWords(filePath);
+                            break;
+
+                        case "3":
+                            Console.WriteLine("You've selected \"Add new mystery word to word bank.\"");
+                            Console.WriteLine("What word would you like to add?");
+                            string wordToAdd = Console.ReadLine();
+                            AddWord(filePath, wordToAdd);
+                            Console.WriteLine("New word successfully added! Here's the updated list of words in your word bank.");
+                            ViewWords(filePath);
+                            break;
+
+                        case "4":
+                            Console.WriteLine("You've selected \"Remove a mystery word from word bank.\"");
+                            Console.WriteLine("What word would you like to remove?");
+                            string wordToRemove = Console.ReadLine();
+                            DeleteWordFromFile(filePath, wordToRemove);
+                            Console.WriteLine("Word successfully removed. Here's the updated list of words in your word bank.");
+                            ViewWords(filePath);
+                            break;
+
+                        case "5":
+                            runProgram = false;
+                            Console.WriteLine("You've selected \"Exit program.\"");
+                            Console.WriteLine("Hit Enter to confirm exit.");
+                            Console.ReadLine();
+                            Environment.Exit(0);
+                            break;
+
+                        default:
+                            Console.WriteLine("Please enter just a number 1-5.");
+                            break;
+                    }
+
+                    // Give user option to choose new option
+                    Console.WriteLine(" ");
+                    Console.WriteLine("To select a new option, type the number of the option you want.\n" +
+                        "Or hit Enter to exit the program.");
+                    Console.WriteLine("   1. Play game\n" +
+                    "   2. View all mystery words\n" +
+                    "   3. Add new mystery word to word bank\n" +
+                    "   4. Remove a mystery word from word bank\n" +
+                    "   5. Exit program");
+                    userAction = Console.ReadLine();
+                    if (userAction != "1" &&
+                            userAction != "2" &&
+                            userAction != "3" &&
+                            userAction != "4" &&
+                            userAction != "5")
+                    {
+                        runProgram = false;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            Console.WriteLine("Hit Enter to exit the program.");
+
+            //AddWord(filePath, userWordToAdd);
+            //ViewWords(filePath);
+
+            //DeleteWordFromFile(filePath, wordToDelete);
+            //ViewWords(filePath);
+
+            //// GetRandomWordFromFile(filePath);
+            //PlayGame(filePath);
+
+            //Console.ReadLine();
             // DeleteFile(filePath);
 
             Console.ReadLine();
@@ -89,8 +175,8 @@ namespace Lab03_Word_Guess_Game
         /// <summary>
         /// Deletes all instances of specified word from word bank file; if word not exists in file, does nothing
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="wordToDelete"></param>
+        /// <param name="path">Path to file</param>
+        /// <param name="wordToDelete">A specified word to delete from word bank file</param>
         public static void DeleteWordFromFile(string path, string wordToDelete)
         {
             // Array of all words in old file
@@ -169,6 +255,24 @@ namespace Lab03_Word_Guess_Game
         }
 
         /// <summary>
+        /// Checks whether user's guessed letter is present in the mystery word
+        /// </summary>
+        /// <param name="mysteryWord">The mystery word that the user is trying to guess</param>
+        /// <param name="guessedLetter">The letter the user guessed</param>
+        /// <returns>Returns Boolean value indicating whether word contains letter</returns>
+        public static bool CheckIfWordContainsLetter(string mysteryWord, char guessedLetter)
+        {
+            if (mysteryWord.Contains(guessedLetter))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Contains gameplay functionality for word guessing game
         /// </summary>
         /// <param name="path">Path of file containing word bank for game</param>
@@ -214,7 +318,7 @@ namespace Lab03_Word_Guess_Game
                 // TODO Handle if user inputs more than one letter or invalid character
 
 
-                Console.WriteLine($"You guessed {guessedLetterAsString}");
+                Console.WriteLine($"You guessed \"{guessedLetterAsString}\"");
                 char guessedLetterAsChar = Convert.ToChar(guessedLetterAsString);
 
                 // Add guessed letter to string of all guessed letters if it's not already in it
@@ -251,24 +355,8 @@ namespace Lab03_Word_Guess_Game
 
             // Show what mystery word was
             Console.WriteLine($"The mystery word was: {mysteryWord}");
-        }
-
-        /// <summary>
-        /// Checks whether user's guessed letter is present in the mystery word
-        /// </summary>
-        /// <param name="mysteryWord">The mystery word that the user is trying to guess</param>
-        /// <param name="guessedLetter">The letter the user guessed</param>
-        /// <returns>Returns Boolean value indicating whether word contains letter</returns>
-        public static bool CheckIfWordContainsLetter(string mysteryWord, char guessedLetter)
-        {
-            if (mysteryWord.Contains(guessedLetter))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            Console.WriteLine("Hit Enter to return to Home menu.");
+            Console.ReadLine();
         }
 
         // IDEAS
