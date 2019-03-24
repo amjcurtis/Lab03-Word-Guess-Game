@@ -16,11 +16,11 @@ namespace XUnitTestProject_Lab03_Word_Guess_Game
         //public void CanAddNewWordToFile()
         //{
         //    // Arrange
-        //    string pathArg = "../../../file.txt";
-        //    //string currentPath = "C:\\Users\\Andrew\\codework\\401\\Lab03-Word-Guess-Game\\Lab03-Word-Guess-Game/file.txt";
+        //    string pathArg = "../../../word_game.txt";
+        //    //string currentPath = "C:\\Users\\Andrew\\codework\\401\\Lab03-Word-Guess-Game\\Lab03-Word-Guess-Game/word_game.txt";
         //    string wordToAdd = "Booyah";
         //    //string[] words = File.ReadAllLines(currentPath);
-        //    //bool exists = File.Exists("../../../../Lab03-Word-Guess-Game/file.txt");
+        //    //bool exists = File.Exists("../../../../Lab03-Word-Guess-Game/word_game.txt");
 
         //    // Act
         //    // Expect: should return number of words/lines in file (i.e. length of array of all words)

@@ -7,7 +7,7 @@ namespace Lab03_Word_Guess_Game
     {
         public static void Main(string[] args)
         {
-            string filePath = "../../../file.txt";
+            string filePath = "../../../word_game.txt";
             string[] wordBank = { "cat", "mouse", "giraffe", "monkey", "snake" };
             string wordToAdd = "kitty";
 
@@ -45,19 +45,27 @@ namespace Lab03_Word_Guess_Game
             }
         }
 
-        // Read file
+        /// <summary>
+        /// Writes all words in file to console
+        /// </summary>
+        /// <param name="path">Path to file</param>
         public static void ViewWords(string path)
         {
             string[] words = File.ReadAllLines(path);
 
-            // Display all words in file in console
+            // Write all words in file to console
             for (int i = 0; i < words.Length; i++)
             {
                 Console.WriteLine(words[i]);
             }
         }
 
-        // Add word
+        /// <summary>
+        /// Add new word to word bank file
+        /// </summary>
+        /// <param name="path">Path to file</param>
+        /// <param name="newWord">New word to add to file</param>
+        /// <returns>Number of words in file</returns>
         public static int AddWord(string path, string newWord)
         {
             string[] words = File.ReadAllLines(path);
@@ -73,16 +81,23 @@ namespace Lab03_Word_Guess_Game
             return words.Length;
         }
 
-        // TODO Delete word from file
+        // TODO Method to delete word from file
 
 
-        // Delete file
+        /// <summary>
+        /// Deletes file
+        /// </summary>
+        /// <param name="path">Path to file</param>
         public static void DeleteFile(string path)
         {
             File.Delete(path);
         }
 
-        // Pick random word for game session
+        /// <summary>
+        /// Gets random word from file
+        /// </summary>
+        /// <param name="path">Path to file</param>
+        /// <returns>Returns randomly picked word</returns>
         public static string GetRandomWordFromFile(string path)
         {
             string[] wordArray = File.ReadAllLines(path);
@@ -100,6 +115,10 @@ namespace Lab03_Word_Guess_Game
             return randomMysteryWord;
         }
 
+        /// <summary>
+        /// Contains gameplay functionality for word guessing game
+        /// </summary>
+        /// <param name="path">Path of file containing word bank for game</param>
         public static void PlayGame(string path)
         {
             // TODO Handle situation where there are no words in file yet
@@ -112,9 +131,8 @@ namespace Lab03_Word_Guess_Game
             Console.WriteLine("mysteryWordLetters: [{0}]", string.Join(" ", mysteryWordLetters));
             Console.WriteLine(" ");
 
-            // Create array storing all user's guesses so far
-            char[] arrayOfAllGuessedLetters = new char[mysteryWordLetters.Length];
-            string stringOfAllGuessedLetters = ""; // Idea: use this as substitute for array of all guessed letters
+            // String that will contain each letter that user guesses
+            string stringOfAllGuessedLetters = "";
 
             // Create array to update with guessed correctly letters
             string[] arrayWithCorrectGuesses = new string[mysteryWordLetters.Length];
@@ -125,8 +143,10 @@ namespace Lab03_Word_Guess_Game
                 arrayWithCorrectGuesses[i] = "_ ";
             }
 
-            // Run loop to let user guess letter until number of user guesses == number of letters in word
-            int count = 0; // Counter to use for limiting number of guesses allowed to number of letters in mystery word
+            // Counter to use for limiting number of guesses allowed to number of letters in mystery word
+            int count = 0;
+
+            // Loop allows user to guess letters until all letters of word have been guessed OR user runs out of guesses
             while (Array.Exists(arrayWithCorrectGuesses, str => str.Contains("_")) && (count < mysteryWordLetters.Length))
             {
                 Console.WriteLine("Guess a letter.");
@@ -154,7 +174,7 @@ namespace Lab03_Word_Guess_Game
                 bool mysteryWordContainsGuessedLetter = CheckIfWordContainsLetter(mysteryWord, guessedLetterAsChar);
 
                 // Add correctly guessed letters to appropriate index(es) in arrayWithCorrectGuesse
-                if (mysteryWordContainsGuessedLetter == true) // Need to explicitly include '== true'?
+                if (mysteryWordContainsGuessedLetter)
                 {
                     // For each letter in mysteryWordLetters array
                     for (int j = 0; j < mysteryWordLetters.Length; j++)
@@ -168,17 +188,13 @@ namespace Lab03_Word_Guess_Game
                     }
                 }
 
-                // Add guessed letter to array of all guessed letters
-                //arrayOfAllGuessedLetters[count] = guessedLetterAsChar;
-
                 // Display list of all guessed letters
                 Console.WriteLine($"The letters you've guessed so far are: {stringOfAllGuessedLetters}");
-                //Console.WriteLine("The letters you've guessed so far are: {0}", string.Join("", arrayOfAllGuessedLetters));
 
                 count++;
             }
             // Display array of spaces and/or letters guessed correctly so far
-            //Console.WriteLine("{0}", string.Join(" ", arrayWithCorrectGuesses));
+            Console.WriteLine("{0}", string.Join(" ", arrayWithCorrectGuesses));
 
             // Show what mystery word was
             Console.WriteLine($"The mystery word was: {mysteryWord}");
@@ -189,7 +205,7 @@ namespace Lab03_Word_Guess_Game
         /// </summary>
         /// <param name="mysteryWord">The mystery word that the user is trying to guess</param>
         /// <param name="guessedLetter">The letter the user guessed</param>
-        /// <returns></returns>
+        /// <returns>Returns Boolean value indicating whether word contains letter</returns>
         public static bool CheckIfWordContainsLetter(string mysteryWord, char guessedLetter)
         {
             if (mysteryWord.Contains(guessedLetter))
