@@ -5,11 +5,14 @@ namespace XUnitTestProject_Lab03_Word_Guess_Game
 {
     public class UnitTest1
     {
+        /// <summary>
+        /// Tests whether ViewWords method can retrieve and display last added words
+        /// </summary>
         [Fact]
         public void CanRetrieveAllWordsFromFile()
         {
             // Arrange
-            string pathArg = "../../../../Lab03-Word-Guess-Game/word_game.txt";
+            string pathArg = "../../../../Lab03-Word-Guess-Game/word_game.txt"; // Better alternative is to "sandbox" my tests and create separate test.txt file in corresponding location in test solution and run test on that rather than on real "production" .txt file
             string wordToAdd = "Booyah";
 
             // Act
