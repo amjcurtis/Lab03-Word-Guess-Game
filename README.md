@@ -1,6 +1,5 @@
 # Word Guess Game
 
-#### Lab03-Word-Guess-Game
 ##### *Author: Andrew Curtis*
 
 ## Description
@@ -12,7 +11,7 @@ This is a C# console app that allows the user to play a word-guessing game simil
 
 Clone this repository to your local machine.
 ```
-$ git clone [repo url here]
+$ git clone https://github.com/cf-coursework/Lab03-Word-Guess-Game.git
 ```
 
 #### To run the program from Visual Studio:
@@ -20,7 +19,7 @@ Select `File` -> `Open` -> `Project/Solution`
 
 Next navigate to the location where you cloned the repository.
 
-Double-click on the `Lab03-Word-Guess-Game` directory.
+Double-click on the `word-guess-game` directory.
 
 Then select and open `Lab03-Word-Guess-Game.sln`
 
@@ -61,5 +60,4 @@ Then select and open `Lab03-Word-Guess-Game.sln`
 
 ## Attribution
 
-* I learned from the Microsoft C# docs and Stack Overflow how to use Array.Exists to check whether an array contains a given string. 
 * For the process of deleting a given word from my word bank file, I got the idea to create and then delete a temp file from Stack Overflow. 
